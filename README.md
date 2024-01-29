@@ -49,3 +49,4 @@ Some constraints about available features for each system user are declared as f
 •	Admin can see all cars in the system or modify any of them. He can also add new cars or even new offices. He also has the authority to view the personal data of all system users as: id, email, and first and last names.
 
 The following ERD (entity relational diagram) shows the system entities design and the relationships between them:
+![plot](https://github.com/omar24ibrahim/Car_Rental_System/blob/main/ERD.png)
