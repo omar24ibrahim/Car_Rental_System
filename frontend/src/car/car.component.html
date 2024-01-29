@@ -1,0 +1,24 @@
+<nz-card style="width:320px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+  <nz-card-meta [nzTitle]="car.brand" [nzDescription]="description" [nzAvatar]="avatarTemplate"></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+  <nz-avatar nzSrc="./assets/logo1.png"></nz-avatar>
+</ng-template>
+<ng-template #coverTemplate>
+  <img alt="example" [src]="car.imageUrl" />
+</ng-template>
+<ng-template #actionSetting>
+  <ng-container *ngIf="visibility?.reserveCar()">
+    <span nz-icon nzType="plus" (click)="carReservation()"></span>
+  </ng-container>
+</ng-template>
+<ng-template #actionEdit>
+  <ng-container *ngIf="visibility?.editCar()">
+    <span nz-icon nzType="edit" (click)="updateDetails()"></span>
+  </ng-container>
+</ng-template>
+<ng-template #actionEllipsis>
+  <ng-container *ngIf="visibility?.carDetails()">
+    <span nz-icon nzType="ellipsis" (click)="showDetails()"></span>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,198 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Plate ID</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+            <input nz-input formControlName="plateId" placeholder="Enter plate ID" />
+            <ng-template #userErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input plate ID!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Brand</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="brandError">
+            <input nz-input formControlName="brand" placeholder="Enter brand" />
+            <ng-template #brandError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input brand!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Type</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="typeError">
+            <input nz-input formControlName="type" placeholder="Enter type" />
+            <ng-template #typeError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input type!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Year</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="yearError">
+            <!-- <input nz-input formControlName="year" placeholder="Enter year" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuYear">
+                {{ validateForm.get('year')?.value ? validateForm.get('year')?.value : 'Choose year' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuYear="nzDropdownMenu">
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <ul nz-menu nzSelectable>
+                        <li *ngFor="let year of years" nz-menu-item (click)="selectYear(year)">{{ year }}</li>
+                    </ul>
+                </div>
+            </nz-dropdown-menu>
+            <ng-template #yearError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input year!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Status</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="statusError">
+            <!-- <input nz-input formControlName="status" placeholder="Enter status" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuStatus">
+                {{ validateForm.get('status')?.value ? validateForm.get('status')?.value : 'Choose status' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuStatus="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="setStatus('ACTIVE')">Active</li>
+                    <li nz-menu-item (click)="setStatus('RENTED')">Rented</li>
+                    <li nz-menu-item nzDanger (click)="setStatus('OUTOFSERVICE')">Out of service</li>
+                </ul>
+            </nz-dropdown-menu>
+            <ng-template #statusError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input status!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Rate</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="rateError">
+            <input nz-input formControlName="rate" placeholder="Enter price per day" />
+            <ng-template #rateError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input price per day!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Transmission type</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="transTypeError">
+            <!-- <input nz-input formControlName="transmissionType" placeholder="Enter transmission type" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuTransmissionType">
+                {{ validateForm.get('transmissionType')?.value ? validateForm.get('transmissionType')?.value : 'Choose transmission type' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuTransmissionType="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="setTransmissionType('MANUAL')">Manual</li>
+                    <li nz-menu-item (click)="setTransmissionType('AUTOMATIC')">Automatic</li>
+                    <li nz-menu-item (click)="setTransmissionType('SEMI_AUTOMATIC')">Semi-automatic</li>
+                </ul>
+            </nz-dropdown-menu>
+            <ng-template #transTypeError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input transmission type!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Fuel type</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="fuelTypeError">
+            <!-- <input nz-input formControlName="fuelType" placeholder="Enter fuel type" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuFuelType">
+                {{ validateForm.get('fuelType')?.value ? validateForm.get('fuelType')?.value : 'Choose fuel type' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuFuelType="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="setFuelType('GASOLINE')">Gasoline</li>
+                    <li nz-menu-item (click)="setFuelType('DIESEL')">Diesel</li>
+                    <li nz-menu-item (click)="setFuelType('ELECTRIC')">Electric</li>
+                    <li nz-menu-item (click)="setFuelType('HYBRID')">Hybrid</li>
+                    <li nz-menu-item (click)="setFuelType('CNG')">CNG</li>
+                </ul>
+            </nz-dropdown-menu>
+            <ng-template #fuelTypeError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input fuel type!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Body style</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="bodyStyleError">
+            <!-- <input nz-input formControlName="bodyStyle" placeholder="Enter body style" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuBodyStyle">
+                {{ validateForm.get('bodyStyle')?.value ? validateForm.get('bodyStyle')?.value : 'Choose body style' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuBodyStyle="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                    <li nz-menu-item (click)="setBodyStyle('SEDAN')">Sedan</li>
+                    <li nz-menu-item (click)="setBodyStyle('SUV')">SUV</li>
+                    <li nz-menu-item (click)="setBodyStyle('HATCHBACK')">Hatchback</li>
+                    <li nz-menu-item (click)="setBodyStyle('COUPE')">Coupe</li>
+                    <li nz-menu-item (click)="setBodyStyle('CONVERTIBLE')">Convertible</li>
+                    <li nz-menu-item (click)="setBodyStyle('WAGON')">Wagon</li>
+                    <li nz-menu-item (click)="setBodyStyle('VAN')">Van</li>
+                    <li nz-menu-item (click)="setBodyStyle('TRUCK')">Truck</li>
+                </ul>
+            </nz-dropdown-menu>
+            <ng-template #bodyStyleError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input body style!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Color</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="colorError">
+            <input nz-input formControlName="color" placeholder="Enter color" />
+            <ng-template #colorError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input color!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Capacity</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="capacityError">
+            <input nz-input formControlName="capacity" placeholder="Enter capacity" />
+            <ng-template #capacityError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input capacity!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Image url</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="imageError">
+            <input nz-input formControlName="imageUrl" placeholder="Enter image url" />
+            <ng-template #imageError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input image!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Office ID</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="officeError">
+            <!-- <input nz-input formControlName="officeId" placeholder="Enter office ID" /> -->
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuOffice">
+                {{ validateForm.get('officeId')?.value ? validateForm.get('officeId')?.value : 'Choose office ID' }} <i nz-icon nzType="down"></i>
+                <span nz-icon nzType="down"></span>
+            </a>
+            <nz-dropdown-menu #menuOffice="nzDropdownMenu">
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <ul nz-menu nzSelectable>
+                        <li *ngFor="let officeId of officeIds" nz-menu-item (click)="selectOffice(officeId)">{{ officeId }}</li>
+                    </ul>
+                </div>
+            </nz-dropdown-menu>
+            <ng-template #officeError let-control>
+                <ng-container *ngIf="control.hasError('required')">Please input office ID!</ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+            <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

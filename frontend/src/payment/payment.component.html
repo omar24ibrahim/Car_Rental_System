@@ -1,0 +1,29 @@
+<nz-space nzDirection="vertical">
+    <ng-container *nzSpaceItem>
+        <ng-container>
+            <div class="date-picker-container" style="margin-top: 20px;">
+                <nz-date-picker [(ngModel)]="startDate"></nz-date-picker>
+                <nz-date-picker [(ngModel)]="endDate"></nz-date-picker>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="startDate !== null && endDate !== null">
+            <button nz-button (click)="search()" nzType="primary" *nzSpaceItem>Search</button>
+        </ng-container>
+    </ng-container>
+    <ng-container *nzSpaceItem class="bottom-three">
+        <nz-table #basicTable [nzData]="payments" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <th>Pick up date</th>
+                    <th>payments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of payments">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </ng-container>
+</nz-space>

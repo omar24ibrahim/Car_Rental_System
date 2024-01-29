@@ -1,0 +1,65 @@
+<div style="background-color: white; height: 100%; width: 100%;">
+<nz-page-header class="site-page-header" style="background-color: rgb(224, 217, 217);">
+    <nz-page-header-title>{{title}}</nz-page-header-title>
+    <nz-page-header-subtitle>{{subtitle}}</nz-page-header-subtitle>
+    <nz-page-header-extra>
+        <nz-space>
+            <ng-container *ngIf="visibility?.findUser()">
+                <button (click)="findUsers()" *nzSpaceItem nz-button>Search User</button>
+            </ng-container>
+            <ng-container *ngIf="reset">
+                <button (click) = "resetSearch()" *nzSpaceItem nz-button>Reset</button>
+            </ng-container>
+            <ng-container *ngIf="search">
+                <form nz-form [formGroup]="searchForm" (ngSubmit)="findCars()" *nzSpaceItem>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input nz-input formControlName="attributeValue" placeholder="Enter {{attributeName|uppercase}}"/>
+                            <button nz-button [disabled]="!searchForm.valid"><i nz-icon nzType="search"></i></button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </ng-container>
+            <ng-container *ngIf="visibility?.findCar()">
+                <button *nzSpaceItem nz-button nz-dropdown [nzDropdownMenu]="findMenu">{{attributeName === '' ? 'Search Car' : attributeName|uppercase}}<i nz-icon nzType="down"></i></button>
+                <nz-dropdown-menu #findMenu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item *ngFor="let attribute of attributes" (click)="showSearchBar(attribute)" [nzDisabled]="attribute === 'status' && visibility?.getType() === 'CLIENT'">{{attribute | uppercase}}</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </ng-container>
+            <ng-container *ngIf="visibility?.addCar()">
+                <button (click)="addCar()" *nzSpaceItem nz-button>Add Car</button>
+            </ng-container>
+            <ng-container *ngIf="visibility?.addOffice()">
+                <button (click)="addOffice()" *nzSpaceItem nz-button>Add Office</button>
+            </ng-container>
+            <ng-container *ngIf="visibility?.getStats()">
+                <button (click)="showStats()" *nzSpaceItem nz-button>Statistics</button>
+            </ng-container>
+            <ng-container *ngIf="visibility?.showPayments()">
+                <button (click)="showPayments()" *nzSpaceItem nz-button>Payments</button>
+            </ng-container>
+            <ng-container *ngIf="visibility?.showLogs()">
+                <button (click)="showLogs()" *nzSpaceItem nz-button>Status Logs</button>
+            </ng-container>
+            <ng-container>
+                <button (click)="signOut()" *nzSpaceItem nz-button>Sign out</button>
+            </ng-container>
+        </nz-space>
+    </nz-page-header-extra>
+    <nz-page-header-content>
+    </nz-page-header-content>
+</nz-page-header>
+<div class="gutter-example" style="padding: 15px;">
+    <ng-container *ngFor="let row of carRows">
+        <div nz-row [nzGutter]="[16, 16]">
+            <div nz-col class="gutter-row" [nzSpan]="24 / 4" *ngFor="let car of row">
+                <div class="grid-config">
+                    <app-car [car]="car"></app-car>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+</div>

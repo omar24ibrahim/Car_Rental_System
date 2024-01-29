@@ -1,0 +1,19 @@
+<ng-container *ngIf="car !== undefined">
+    <nz-descriptions [nzTitle]="car.brand+' '+car.type+' '+car.year" nzBordered nzLayout="vertical">
+        <nz-descriptions-item nzTitle="Brand">{{car.brand}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Type">{{car.type}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Year">{{car.year}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Transmission Type">{{car.transmissionType}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Fuel Type" [nzSpan]="1">
+            {{car.fuelType}}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Body Style">{{car.bodyStyle}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Status" [nzSpan]="3">
+            <nz-badge nzStatus="processing" [nzText]="car.status"></nz-badge>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Plate Id">{{car.plateId}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Color">{{car.color}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="capacity">{{car.capacity}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Price per Day">{{car.rate}}</nz-descriptions-item>
+    </nz-descriptions>
+</ng-container>

@@ -1,0 +1,207 @@
+<div class="car-details-container">
+    <ng-container *ngIf="car !== undefined">
+        <nz-descriptions [nzTitle]="car.brand+' '+car.type+' '+car.year" nzBordered nzLayout="vertical">
+            <nz-descriptions-item nzTitle="Brand">
+                <ng-container *ngIf="!isEditing['brand']; else editBrand">
+                    <span (click)="toggleEdit('brand')" [ngClass]="{'clickable': !isEditing['brand']}">{{ car.brand
+                        }}</span>
+                </ng-container>
+                <ng-template #editBrand>
+                    <input nz-input [(ngModel)]="car.brand" />
+                    <a (click)="saveField('brand')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Type">
+                <ng-container *ngIf="!isEditing['type']; else editType">
+                    <span (click)="toggleEdit('type')" [ngClass]="{'clickable': !isEditing['type']}">{{ car.type
+                        }}</span>
+                </ng-container>
+                <ng-template #editType>
+                    <input nz-input [(ngModel)]="car.type" />
+                    <a (click)="saveField('type')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Year">
+                <ng-container *ngIf="!isEditing['year']; else editYear">
+                    <span (click)="toggleEdit('year')" [ngClass]="{'clickable': !isEditing['year']}">{{ car.year
+                        }}</span>
+                </ng-container>
+                <ng-template #editYear>
+                    <!-- <input nz-input [(ngModel)]="car.year" /> -->
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuYear">
+                        {{ car.year }} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuYear="nzDropdownMenu">
+                        <div style="max-height: 200px; overflow-y: auto;">
+                            <ul nz-menu nzSelectable>
+                                <li *ngFor="let year of years" nz-menu-item (click)="selectYear(year)">{{ year }}</li>
+                            </ul>
+                        </div>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('year')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Transmission type">
+                <ng-container *ngIf="!isEditing['transmissionType']; else editTransmissionType">
+                    <span (click)="toggleEdit('transmissionType')"
+                        [ngClass]="{'clickable': !isEditing['transmissionType']}">{{ car.transmissionType }}</span>
+                </ng-container>
+                <ng-template #editTransmissionType>
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuTransmissionType">
+                        {{car.transmissionType}} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuTransmissionType="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                            <li nz-menu-item (click)="setTransmissionType('MANUAL')">Manual</li>
+                            <li nz-menu-item (click)="setTransmissionType('AUTOMATIC')">Automatic</li>
+                            <li nz-menu-item (click)="setTransmissionType('SEMI_AUTOMATIC')">Semi-automatic</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('transmissionType')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Fuel type">
+                <ng-container *ngIf="!isEditing['fuelType']; else editFuelType">
+                    <span (click)="toggleEdit('fuelType')" [ngClass]="{'clickable': !isEditing['fuelType']}">{{
+                        car.fuelType }}</span>
+                </ng-container>
+                <ng-template #editFuelType>
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuFuelType">
+                        {{ car.fuelType }} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuFuelType="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                            <li nz-menu-item (click)="setFuelType('GASOLINE')">Gasoline</li>
+                            <li nz-menu-item (click)="setFuelType('DIESEL')">Diesel</li>
+                            <li nz-menu-item (click)="setFuelType('ELECTRIC')">Electric</li>
+                            <li nz-menu-item (click)="setFuelType('HYBRID')">Hybrid</li>
+                            <li nz-menu-item (click)="setFuelType('CNG')">CNG</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('fuelType')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Status">
+                <ng-container *ngIf="!isEditing['status']; else editStatus">
+                    <span (click)="toggleEdit('status')" [ngClass]="{'clickable': !isEditing['status']}">{{ car.status
+                        }}</span>
+                </ng-container>
+                <ng-template #editStatus>
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuStatus">
+                        {{car.status}} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuStatus="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                            <li nz-menu-item (click)="setStatus('ACTIVE')">Active</li>
+                            <li nz-menu-item (click)="setStatus('RENTED')">Rented</li>
+                            <li nz-menu-item nzDanger (click)="setStatus('OUTOFSERVICE')">Out of service</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('status')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Plate Id">{{car.plateId}}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Color">
+                <ng-container *ngIf="!isEditing['color']; else editColor">
+                    <span (click)="toggleEdit('color')" [ngClass]="{'clickable': !isEditing['color']}">{{ car.color
+                        }}</span>
+                </ng-container>
+                <ng-template #editColor>
+                    <input nz-input [(ngModel)]="car.color" />
+                    <a (click)="saveField('color')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Capacity">
+                <ng-container *ngIf="!isEditing['capacity']; else editCapacity">
+                    <span (click)="toggleEdit('capacity')" [ngClass]="{'clickable': !isEditing['capacity']}">{{
+                        car.capacity }}</span>
+                </ng-container>
+                <ng-template #editCapacity>
+                    <input nz-input [(ngModel)]="car.capacity" />
+                    <a (click)="saveField('capacity')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Price per day">
+                <ng-container *ngIf="!isEditing['rate']; else editRate">
+                    <span (click)="toggleEdit('rate')" [ngClass]="{'clickable': !isEditing['rate']}">{{ car.rate
+                        }}</span>
+                </ng-container>
+                <ng-template #editRate>
+                    <input nz-input [(ngModel)]="car.rate" />
+                    <a (click)="saveField('rate')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Body style">
+                <ng-container *ngIf="!isEditing['bodyStyle']; else editBodyStyle">
+                    <span (click)="toggleEdit('bodyStyle')" [ngClass]="{'clickable': !isEditing['bodyStyle']}">{{
+                        car.bodyStyle
+                        }}</span>
+                </ng-container>
+                <ng-template #editBodyStyle>
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuBodyStyle">
+                        {{ car.bodyStyle }} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuBodyStyle="nzDropdownMenu">
+                        <ul nz-menu nzSelectable>
+                            <li nz-menu-item (click)="setBodyStyle('SEDAN')">Sedan</li>
+                            <li nz-menu-item (click)="setBodyStyle('SUV')">SUV</li>
+                            <li nz-menu-item (click)="setBodyStyle('HATCHBACK')">Hatchback</li>
+                            <li nz-menu-item (click)="setBodyStyle('COUPE')">Coupe</li>
+                            <li nz-menu-item (click)="setBodyStyle('CONVERTIBLE')">Convertible</li>
+                            <li nz-menu-item (click)="setBodyStyle('WAGON')">Wagon</li>
+                            <li nz-menu-item (click)="setBodyStyle('VAN')">Van</li>
+                            <li nz-menu-item (click)="setBodyStyle('TRUCK')">Truck</li>
+                        </ul>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('bodyStyle')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Office" *ngIf="visibility?.updateCarOffice()">
+                <ng-container *ngIf="!isEditing['office']; else editOffice">
+                    <span (click)="toggleEdit('office')" [ngClass]="{'clickable': !isEditing['office']}">{{
+                        car.office.officeId
+                        }}</span>
+                </ng-container>
+                <ng-template #editOffice>
+                    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menuOffice">
+                        {{ car.office.officeId}} <i nz-icon nzType="down"></i>
+                        <span nz-icon nzType="down"></span>
+                    </a>
+                    <nz-dropdown-menu #menuOffice="nzDropdownMenu">
+                        <div style="max-height: 200px; overflow-y: auto;">
+                            <ul nz-menu nzSelectable>
+                                <li *ngFor="let officeId of officeIds" nz-menu-item (click)="setOffice(officeId)">{{ officeId }}</li>
+                            </ul>
+                        </div>
+                    </nz-dropdown-menu>
+                    <a (click)="saveField('office')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Image url" [nzSpan]="3">
+                <ng-container *ngIf="!isEditing['imageUrl']; else editImage">
+                    <span (click)="toggleEdit('imageUrl')" [ngClass]="{'clickable': !isEditing['imageUrl']}">{{ car.imageUrl
+                        }}</span>
+                </ng-container>
+                <ng-template #editImage>
+                    <input nz-input [(ngModel)]="car.imageUrl" />
+                    <a (click)="saveField('imageUrl')">Save</a>
+                </ng-template>
+            </nz-descriptions-item>
+        </nz-descriptions>
+
+        <div class="button-container">
+            <div class="buttons">
+                <a nz-popconfirm nzPopconfirmTitle="Are you sure update this car?" nzPopconfirmPlacement="bottom"
+                    (nzOnConfirm)="confirmUpdate()" (nzOnCancel)="cancel()">
+                    Update
+                </a>
+
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,30 @@
+<nz-space nzDirection="vertical">
+    <ng-container *nzSpaceItem>
+        <ng-container>
+            <div class="date-picker-container" style="margin-top: 20px;">
+                <nz-date-picker [(ngModel)]="date"></nz-date-picker>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="date !== null">
+            <button nz-button (click)="search()" nzType="primary" *nzSpaceItem>Search</button>
+        </ng-container>
+    </ng-container>
+    <ng-container *nzSpaceItem class="bottom-three">
+        <nz-table #basicTable [nzData]="logs" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <th>Plate Id</th>
+                    <th>Date</th>
+                    <th>Car State</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of logs">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    <td>{{ data[2] }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </ng-container>
+</nz-space>

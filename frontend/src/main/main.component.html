@@ -1,0 +1,16 @@
+<div style="width: 100%;height: 100%;background-color: rgb(117, 203, 242);"><div *ngIf="!isRegister" id="name">BON VOYAGE</div>
+<div *ngIf="!isRegister" id="slogan">Where will your next ride take you?</div>
+<div *ngIf="!isRegister" id="logo"></div>
+<div *ngIf="isRegister" id="welcome">WELCOME</div>
+<div *ngIf="!isRegister; else other_condition" id="login">
+    <app-login></app-login>
+    <a (click)="flipRegister()">Or register now!</a>
+</div>
+<ng-template #other_condition>
+    <div id="reg">
+        <div id="user"></div>
+            <app-register></app-register>
+            <a (click)="flipRegister()" style="position: absolute;bottom: 3%;left: 5%;"> Or login now!</a>
+        </div>
+</ng-template>
+</div>

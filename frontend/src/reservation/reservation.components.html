@@ -1,0 +1,77 @@
+<nz-space nzDirection="vertical">
+    <ng-container *nzSpaceItem>
+        <nz-space>
+            <ng-container>
+                <button nz-button (click)="showAll()" nzType="primary" *nzSpaceItem>Show All</button>
+            </ng-container>
+            <ng-container>
+                <button nz-button (click)="searchByPeriod()" nzType="primary" *nzSpaceItem>Search By Period</button>
+            </ng-container>
+            <ng-container>
+                <button nz-button (click)="searchByCar()" nzType="primary" *nzSpaceItem>Search By Car</button>
+            </ng-container>
+            <ng-container>
+                <button nz-button (click)="searchByClient()" nzType="primary" *nzSpaceItem>Search By Client</button>
+            </ng-container>
+        </nz-space>
+    </ng-container>
+    <ng-container *nzSpaceItem>
+        <ng-container *ngIf="searchMode !== undefined && searchMode?.toString() === '0'">
+            <input nz-input placeholder="Plate Id" [(ngModel)]="plateId" type="number" />
+        </ng-container>
+        <br />
+        <ng-container *ngIf="searchMode !== undefined && searchMode?.toString() === '2'">
+            <input nz-input placeholder="Client Email" [(ngModel)]="clientEmail" />
+        </ng-container>
+        <br />
+        <ng-container *ngIf="searchMode !== undefined && (searchMode?.toString() === '0' || searchMode?.toString() === '1')">
+            <div class="date-picker-container" style="margin-top: 20px;">
+                <nz-date-picker [(ngModel)]="startDate"></nz-date-picker>
+                <nz-date-picker [(ngModel)]="endDate"></nz-date-picker>
+            </div>
+        </ng-container>
+        <ng-container
+            *ngIf="searchMode !== undefined && searchMode?.toString() === '0' || searchMode?.toString() === '1' || searchMode?.toString() === '2'">
+            <button nz-button (click)="search()" nzType="primary" *nzSpaceItem>Search</button>
+        </ng-container>
+    </ng-container>
+    <ng-container *nzSpaceItem class="bottom-three">
+        <nz-table #basicTable [nzData]="reservations" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Plate Id</th>
+                    <th>Brand</th>
+                    <th>Type</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    <th>Rate</th>
+                    <th>Reservation Id</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of reservations">
+                    <td>{{ data[0] }}</td>
+                    <td>{{ data[1] }}</td>
+                    <td>{{ data[2] }}</td>
+                    <td>{{ data[3] }}</td>
+                    <td>{{ data[4] }}</td>
+                    <td>{{ data[5] }}</td>
+                    <td>{{ data[6] }}</td>
+                    <td>{{ data[7] }}</td>
+                    <td>{{ data[8] }}</td>
+                    <td>{{ data[9] }}</td>
+                    <td>{{ data[10] }}</td>
+                    <td>{{ data[11] }}</td>
+                    <td>{{ data[12] }}</td>
+                    <td>{{ data[13] }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </ng-container>
+</nz-space>

@@ -1,0 +1,25 @@
+.clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    /* Add underline or other styles as needed */
+    color: blue;
+    /* Change this to your preferred color */
+}
+
+.car-details-container {
+  margin-bottom: 20px; /* Adjust the margin as needed to create space between descriptions and buttons */
+}
+
+.button-container {
+  margin-top: 10px; /* Adjust the margin as needed to create space between buttons */
+  text-align: right;
+  margin-right: 20px;
+}
+
+.buttons a.delete {
+    background-color: transparent; /* Transparent background for Delete button */
+    border: none; /* No border for Delete button */
+    color: #ff4d4f; /* Red text color for Delete button */
+  }
+
+  

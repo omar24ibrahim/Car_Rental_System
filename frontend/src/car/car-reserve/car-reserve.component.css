@@ -1,0 +1,19 @@
+date-picker-container {
+    display: flex;
+    justify-content: space-between;  /* Adjust this as needed */
+    align-items: center;             /* Adjust this as needed */
+    gap: 16px;                       /* Adjust this as needed */
+  }
+  
+  /* Optional: Adjust styling for individual date pickers */
+  nz-date-picker {
+    /* Add any additional styling for the date picker */
+    width: 120px;  /* Adjust this as needed */
+  }
+
+  center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed */
+  }

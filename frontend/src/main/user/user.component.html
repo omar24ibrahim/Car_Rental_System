@@ -1,0 +1,50 @@
+<nz-page-header class="site-page-header" style="background-color: rgb(224, 217, 217);">
+    <nz-page-header-title>Find Users</nz-page-header-title>
+    <nz-page-header-extra>
+        <nz-space>
+            <ng-container>
+                <button (click) = "resetSearch()" *nzSpaceItem nz-button>Reset</button>
+            </ng-container>
+            <ng-container>
+                <form nz-form [formGroup]="searchForm" (ngSubmit)="findUsers()" *nzSpaceItem>
+                    <nz-form-item>
+                        <nz-form-control>
+                            <input nz-input formControlName="propertyValue" placeholder="Enter {{propertyName|uppercase}}"/>
+                            <button nz-button [disabled]="!searchForm.valid || propertyName===''"><i nz-icon nzType="search"></i></button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </ng-container>
+            <ng-container>
+                <button *nzSpaceItem nz-button nz-dropdown [nzDropdownMenu]="findMenu">{{propertyName === '' ? 'Search User' : propertyName|uppercase}}<i nz-icon nzType="down"></i></button>
+                <nz-dropdown-menu #findMenu="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li nz-menu-item *ngFor="let property of properties" (click)="updateSearchBar(property)">{{property | uppercase}}</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </ng-container>
+        </nz-space>
+</nz-page-header-extra>
+</nz-page-header>
+<div class="gutter-example" style="padding: 15px;">
+<ng-container>
+    <nz-table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.id}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</ng-container>
+</div>
